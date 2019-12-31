@@ -45,6 +45,18 @@ class APCallManager: NSObject {
         }
     }
     
+    func removeCall(_ call: APCall) {
+           calls = calls.filter {$0 === call}
+           postCallsChangedNotification()
+       }
+    
+    func callWithUUID(uuid: UUID) -> APCall? {
+        guard let index = calls.firstIndex(where: { $0.uuid == uuid }) else {
+               return nil
+           }
+           return calls[index]
+       }
+    
     private func postCallsChangedNotification() {
         NotificationCenter.default.post(name: type(of: self).CallsChangedNotification, object: self)
     }

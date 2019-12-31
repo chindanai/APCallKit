@@ -17,6 +17,7 @@ class CallViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     
     var durationTimer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,12 +29,16 @@ class CallViewController: UIViewController {
                          name: APCallManager.CallsChangedNotification, object: nil)
     }
     
+    deinit {
+        print("CallViewController: \(#function)")
+    }
+    
     @objc func handleCallsChangedNotification(notification: NSNotification) {
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
         if (appdelegate.callManager.calls.count > 0) {
             let call = appdelegate.callManager.calls[0]
-            if call.hasConnected {
+            if call.hasConnected && call.endDate == nil {
                 durationTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateDurationLabel), userInfo: nil, repeats: true)
                 timeLabel.text = NSLocalizedString("00:00", comment: "")
             } else {
@@ -56,10 +61,14 @@ class CallViewController: UIViewController {
                 timeLabel.text = String(format: "%02d:%02d", minutes, seconds)
             }
         }
-        
     }
     
     @IBAction func onEndCall(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.durationTimer?.invalidate()
+            self.durationTimer = nil
+        }
+        
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         for call in appdelegate.callManager.calls {

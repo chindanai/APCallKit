@@ -117,6 +117,28 @@ class APCall: NSObject {
         }
     }
     
+    func endCall() {
+        if let publisher = publisher {
+            var error: OTError?
+            session?.unpublish(publisher, error: &error)
+            if error != nil {
+                print(error!)
+            }
+        }
+        publisher = nil
+        
+        if let session = session {
+            var error: OTError?
+            session.disconnect(&error)
+            if error != nil {
+                print(error!)
+            }
+        }
+        session = nil
+        
+        hasEnded = true
+    }
+    
     func startAudio() {
         if publisher == nil {
             let settings = OTPublisherSettings()

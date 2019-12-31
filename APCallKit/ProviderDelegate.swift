@@ -103,7 +103,13 @@ extension ProviderDelegate: CXProviderDelegate {
     }
     
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        guard let call = callManager.callWithUUID(uuid: action.callUUID) else {
+            action.fail()
+            return
+        }
+        call.endCall()
         action.fulfill()
+        callManager.removeCall(call)
     }
     
     func provider(_ provider: CXProvider, perform action: CXSetHeldCallAction) {
