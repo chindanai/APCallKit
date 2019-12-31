@@ -13,6 +13,7 @@ import AVFoundation
 class ProviderDelegate: NSObject {
     private var provider: CXProvider
     let callManager: APCallManager
+    var outgoingCall: APCall?
     
     init(callManager: APCallManager) {
         self.callManager = callManager
@@ -89,8 +90,11 @@ extension ProviderDelegate: CXProviderDelegate {
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         let call = APCall(uuid: action.callUUID, isOutgoing: true)
         call.handle = action.handle.value
-        self.callManager.addCall(call)
+
         configureAudioSession()
+        
+        outgoingCall = call
+        callManager.addCall(self.outgoingCall!)
         action.fulfill()
     }
     
@@ -115,7 +119,11 @@ extension ProviderDelegate: CXProviderDelegate {
     }
     
     func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
-        //
+        outgoingCall?.startCall(withAudioSession: audioSession) { success in
+            if success {
+                self.outgoingCall?.startAudio()
+            }
+        }
     }
     
     func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {

@@ -11,8 +11,10 @@ import UIKit
 import CallKit
 
 class APCallManager: NSObject {
-
+    static let CallsChangedNotification = Notification.Name("CallManagerCallsChangedNotification")
+    
     let callController = CXCallController()
+    
     private(set) var calls = [APCall]()
     
     func startCall(handle: String, video: Bool = false) {
@@ -37,6 +39,14 @@ class APCallManager: NSObject {
     
     func addCall(_ call: APCall) {
         calls.append(call)
+        
+        call.stateDidChange = { [weak self] in
+            self?.postCallsChangedNotification()
+        }
+    }
+    
+    private func postCallsChangedNotification() {
+        NotificationCenter.default.post(name: type(of: self).CallsChangedNotification, object: self)
     }
     
     private func requestTransaction(_ transaction: CXTransaction, action: String = "") {

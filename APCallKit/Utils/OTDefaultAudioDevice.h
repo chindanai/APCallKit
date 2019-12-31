@@ -10,8 +10,6 @@
 #import <Foundation/Foundation.h>
 #import <OpenTok/OpenTok.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 #define kMixerInputBusCount 2
 #define kOutputBus 0
 #define kInputBus 1
@@ -75,5 +73,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)setPlayOutRenderCallback:(AudioUnit)unit;
 
 @end
-
-NS_ASSUME_NONNULL_END

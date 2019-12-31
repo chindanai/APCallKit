@@ -17,7 +17,10 @@ class ViewController: UIViewController {
 
     @IBAction func callButtonPressed(_ sender: UIButton) {
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
+
+        let callVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallViewController")
+        present(callVC, animated: true, completion: nil)
+
         appdelegate.callManager.startCall(handle: "Amanda")
     }
     
