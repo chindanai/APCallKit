@@ -71,9 +71,20 @@ class CallViewController: UIViewController {
     
     @IBAction func onSpeaker(_ sender: Any) {
         speakerButton.isSelected = !speakerButton.isSelected
+        if speakerButton.isSelected {
+            OTDefaultAudioDevice.sharedInstance()?.configureAudioSession(withDesiredAudioRoute: AUDIO_DEVICE_SPEAKER)
+        } else {
+            OTDefaultAudioDevice.sharedInstance()?.configureAudioSession(withDesiredAudioRoute: AUDIO_DEVICE_HEADSET)
+        }
     }
     
     @IBAction func onMute(_ sender: Any) {
         muteButton.isSelected = !muteButton.isSelected
+        
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        if (appdelegate.callManager.calls.count > 0) {
+            let call = appdelegate.callManager.calls[0]
+            call.isMuted = muteButton.isSelected
+        }
     }
 }
