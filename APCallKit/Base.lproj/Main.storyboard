@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="APCallKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CgA-6O-LNf">
+                                <rect key="frame" x="174.5" y="433" width="65" height="30"/>
+                                <state key="normal" title="Make call"/>
+                                <connections>
+                                    <action selector="callButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Kv-5i-M5M"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGM-I2-Qc4">
+                                <rect key="frame" x="180" y="471" width="54" height="30"/>
+                                <state key="normal" title="End call"/>
+                                <connections>
+                                    <action selector="endCall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lTY-el-QyI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErJ-Vm-9l7">
+                                <rect key="frame" x="130.5" y="509" width="153" height="30"/>
+                                <state key="normal" title="Simulate incoming call"/>
+                                <connections>
+                                    <action selector="simulateIncomingCall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ub0-FV-yJo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83w-eD-SHb">
+                                <rect key="frame" x="74.5" y="547" width="265" height="30"/>
+                                <state key="normal" title="Simulate incoming call after 3 seconds"/>
+                                <connections>
+                                    <action selector="simulateIncomingCallAfterSeconds:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6L9-xz-qJx"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="COJ-rx-3xK">
+                                <rect key="frame" x="157" y="325" width="100" height="100"/>
+                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="7wE-oS-Xjs"/>
+                                    <constraint firstAttribute="width" constant="100" id="Zdh-7I-94F"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ErJ-Vm-9l7" firstAttribute="top" secondItem="pGM-I2-Qc4" secondAttribute="bottom" constant="8" id="7xu-Fj-s2c"/>
+                            <constraint firstItem="83w-eD-SHb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8vS-gl-NG1"/>
+                            <constraint firstItem="pGM-I2-Qc4" firstAttribute="top" secondItem="CgA-6O-LNf" secondAttribute="bottom" constant="8" id="CWo-7k-B6h"/>
+                            <constraint firstItem="pGM-I2-Qc4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ClP-JB-ndv"/>
+                            <constraint firstItem="CgA-6O-LNf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="GYy-as-Vzw"/>
+                            <constraint firstItem="CgA-6O-LNf" firstAttribute="top" secondItem="COJ-rx-3xK" secondAttribute="bottom" constant="8" id="Oh6-kP-CdT"/>
+                            <constraint firstItem="CgA-6O-LNf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P3S-XZ-E0y"/>
+                            <constraint firstItem="83w-eD-SHb" firstAttribute="top" secondItem="ErJ-Vm-9l7" secondAttribute="bottom" constant="8" id="Qm1-7v-vWo"/>
+                            <constraint firstItem="ErJ-Vm-9l7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U4J-wa-fEb"/>
+                            <constraint firstItem="COJ-rx-3xK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bXc-n3-coX"/>
+                            <constraint firstItem="CgA-6O-LNf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fVD-OV-UY3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="134"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo" width="534" height="534"/>
+    </resources>
+</document>

@@ -1,0 +1,16 @@
+PODS:
+  - OpenTok (2.16.3)
+
+DEPENDENCIES:
+  - OpenTok
+
+SPEC REPOS:
+  trunk:
+    - OpenTok
+
+SPEC CHECKSUMS:
+  OpenTok: e17e1333108837cf0669be5de8f3155d1eb7ac12
+
+PODFILE CHECKSUM: 87c584ab64389e3f9e2c17605ada9a6fb37b9da2
+
+COCOAPODS: 1.8.4
