@@ -465,6 +465,7 @@ static bool CheckError(OSStatus error, NSString* function) {
     NSUInteger audioOptions = 0;
 #if !(TARGET_OS_TV)
     audioOptions |= AVAudioSessionCategoryOptionAllowBluetooth ;
+    audioOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
     [mySession setCategory:AVAudioSessionCategoryPlayAndRecord
                withOptions:audioOptions
                      error:&error];
@@ -525,6 +526,7 @@ static bool CheckError(OSStatus error, NSString* function) {
     NSUInteger audioOptions = AVAudioSessionCategoryOptionMixWithOthers;
 #if !(TARGET_OS_TV)
     audioOptions |= AVAudioSessionCategoryOptionAllowBluetooth ;
+    audioOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
     [mySession setCategory:AVAudioSessionCategoryPlayAndRecord
                withOptions:audioOptions
                      error:&error];
@@ -671,7 +673,7 @@ static bool CheckError(OSStatus error, NSString* function) {
 
 - (void) onRouteChangeEvent:(NSNotification *) notification
 {
-    OT_AUDIO_DEBUG(@"onRouteChangeEvent %@",notification);
+//    NSLog(@"onRouteChangeEvent %@",notification);
     dispatch_async(_safetyQueue, ^() {
         [self handleRouteChangeEvent:notification];
     });
@@ -722,7 +724,7 @@ static bool CheckError(OSStatus error, NSString* function) {
            currentOutputDeviceName == nil ||  oldOutputDeviceName == nil) {
             return;
         }
-        OT_AUDIO_DEBUG(@"routeChanged: old=%@ new=%@",
+        NSLog(@"routeChanged: old=%@ new=%@",
                        oldOutputDeviceName, currentOutputDeviceName);
     }
     
@@ -1161,7 +1163,7 @@ static OSStatus playout_cb(void *ref_con,
         return NO;
     }
     
-    [self setBluetoothAsPrefferedInputDevice];
+//    [self setBluetoothAsPrefferedInputDevice];
     return YES;
 }
 

@@ -14,6 +14,7 @@ class ProviderDelegate: NSObject {
     private var provider: CXProvider
     let callManager: APCallManager
     var outgoingCall: APCall?
+    var answerCall: APCall?
     
     init(callManager: APCallManager) {
         self.callManager = callManager
@@ -87,6 +88,11 @@ extension ProviderDelegate: CXProviderDelegate {
         print("Provider did reset")
     }
     
+    func provider(_ provider: CXProvider, execute transaction: CXTransaction) -> Bool {
+        print("transaction: \(#function)")
+        return false
+    }
+    
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         let call = APCall(uuid: action.callUUID, isOutgoing: true)
         call.handle = action.handle.value
@@ -94,11 +100,20 @@ extension ProviderDelegate: CXProviderDelegate {
         configureAudioSession()
         
         outgoingCall = call
-        callManager.addCall(self.outgoingCall!)
+        callManager.addCall(call)
+        
         action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        guard let call = callManager.callWithUUID(uuid: action.callUUID) else {
+            action.fail()
+            return
+        }
+        configureAudioSession()
+
+        answerCall = call
+        
         action.fulfill()
     }
     
@@ -118,6 +133,7 @@ extension ProviderDelegate: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
         action.fulfill()
+        outgoingCall?.isMuted = action.isMuted
     }
     
     func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) {

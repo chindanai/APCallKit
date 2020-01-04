@@ -22,7 +22,7 @@ class APCallManager: NSObject {
         let startCallAction = CXStartCallAction(call: UUID(), handle: handle)
 
         startCallAction.isVideo = video
-
+        
         let transaction = CXTransaction()
         transaction.addAction(startCallAction)
 
